@@ -72,7 +72,7 @@
             /* Optionally update hero title */
             const heroTitle = document.querySelector('#hero h1');
             if (heroTitle && data.eventName) {
-                heroTitle.textContent = `The Literary Nexus Presents: ${data.eventName}`;
+                heroTitle.textContent = `${data.eventName} 2026`;
             }
 
             if (data.eventDate) {
@@ -167,7 +167,7 @@
         const email      = escapeHTML(user.email);
         const snippet    = escapeHTML(user.company?.catchPhrase ?? '');
         const fullBio    = escapeHTML(user.company?.bs ?? '');
-        const photoUrl   = `https://picsum.photos/id/${user.id}/200/200`;
+        const photoUrl   = `assets/images/author-${user.id}.webp`;
         /* 1×1 transparent SVG placeholder – avoids a network request for the placeholder */
         const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3C/svg%3E";
 

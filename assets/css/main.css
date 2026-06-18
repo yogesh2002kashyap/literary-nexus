@@ -1,0 +1,913 @@
+/* Design Token System */
+:root {
+    /* Brand Colors */
+    --brand-primary: #A30000;         /* Deep Crimson */
+    --brand-primary-hover: #800000;   /* Darker Crimson */
+    --brand-secondary: #F8F0E3;       /* Aged Parchment */
+    --brand-secondary-dark: #ECE0CA;  /* Darker Parchment */
+    --accent-gold: #D4AF37;           /* Classic Gold */
+    
+    /* Text Colors */
+    --text-dark: #2B2B2B;             /* Primary body text */
+    --text-light: #FDFDFD;            /* Text on dark backgrounds */
+    --text-muted: #555555;            /* Secondary text on light backgrounds */
+    
+    /* Typography */
+    --font-heading: 'Merriweather', serif;
+    --font-body: 'Open Sans', sans-serif;
+    
+    /* Spacing Scale */
+    --spacing-unit: 1rem;
+    --spacing-xs: calc(var(--spacing-unit) * 0.25);
+    --spacing-sm: calc(var(--spacing-unit) * 0.5);
+    --spacing-md: var(--spacing-unit);
+    --spacing-lg: calc(var(--spacing-unit) * 2);
+    --spacing-xl: calc(var(--spacing-unit) * 4);
+    
+    /* UI Decoratives */
+    --border-radius-sm: 4px;
+    --border-radius-lg: 8px;
+    --box-shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.15);
+    --box-shadow-focus: 0 0 0 3px rgba(163, 0, 0, 0.5);
+    
+    /* Animation Speeds */
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* CSS Reset & Base Layout */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    background-color: var(--brand-secondary);
+    color: var(--text-dark);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Base Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--brand-primary);
+}
+
+a {
+    color: var(--brand-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--brand-primary-hover);
+}
+
+/* ── Global Focus States (Accessibility – keyboard-only via :focus-visible) ── */
+:focus-visible {
+    outline: 3px solid var(--brand-primary);
+    outline-offset: 4px;
+    box-shadow: 0 0 0 5px rgba(163, 0, 0, 0.25);
+    border-radius: var(--border-radius-sm);
+}
+
+/* Accessible focus outlines for elements on dark backgrounds (e.g. #hero and footer) */
+#hero :focus-visible, footer :focus-visible {
+    outline: 3px solid var(--brand-secondary);
+    box-shadow: 0 0 0 5px rgba(248, 240, 227, 0.25);
+}
+
+/* Accessibility Skip Link (For keyboard users) */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: var(--spacing-md);
+    background: var(--brand-primary);
+    color: var(--text-light);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    z-index: 1000;
+    transition: top var(--transition-fast);
+}
+
+.skip-link:focus-visible {
+    top: var(--spacing-md);
+}
+
+/* Header & Sticky Navigation */
+header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background-color: rgba(248, 240, 227, 0.95); /* Semi-transparent Parchment */
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-bottom: 2px solid var(--brand-secondary-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-md);
+    gap: var(--spacing-sm);
+}
+
+header .logo a {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--brand-primary);
+    letter-spacing: 0.5px;
+    transition: transform var(--transition-fast);
+    display: inline-block;
+}
+
+header .logo a:hover {
+    transform: scale(1.02);
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+
+header nav a {
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dark);
+    padding: var(--spacing-sm) var(--spacing-md);
+    display: inline-block;
+    border-bottom: 2px solid transparent;
+    transition: all var(--transition-fast);
+}
+
+header nav a:hover {
+    color: var(--brand-primary);
+    border-bottom: 2px solid var(--brand-primary);
+}
+
+/* Main Container Layout */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    /* contain:layout prevents child reflows from cascading upward (CLS) */
+    contain: layout;
+}
+
+/* Hero Section (Above-the-Fold) */
+#hero {
+    min-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: var(--spacing-xl) var(--spacing-md);
+    /* Background colour fallback while image loads */
+    background-color: #111827;
+    color: var(--text-light);
+    border-bottom: 4px solid var(--accent-gold);
+    overflow: hidden;
+}
+
+/* Hero background picture element – full-bleed, decorative */
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    /* Dark overlay via CSS so text stays readable */
+    filter: brightness(0.40);
+    display: block;
+}
+
+/* Ensure hero content sits above the background image */
+#hero > :not(.hero-bg) {
+    position: relative;
+    z-index: 1;
+}
+
+#hero h1 {
+    color: var(--text-light);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    max-width: 800px;
+    margin-bottom: var(--spacing-md);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+#hero h2 {
+    color: var(--accent-gold);
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: var(--spacing-lg);
+    font-weight: 600;
+}
+
+/* Countdown Container */
+.countdown-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    box-shadow: var(--box-shadow-subtle);
+}
+
+.countdown-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--brand-secondary);
+}
+
+#countdown-timer {
+    font-family: var(--font-heading);
+    font-size: clamp(1.25rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+/* CTA Buttons */
+.cta-button {
+    display: inline-block;
+    background-color: var(--brand-primary);
+    color: var(--text-light);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    /* Specific properties only – avoids triggering layout recalc on every change */
+    transition: background-color var(--transition-normal),
+                transform var(--transition-normal),
+                box-shadow var(--transition-normal);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border: 2px solid transparent;
+}
+
+.cta-button:hover {
+    background-color: var(--brand-primary-hover);
+    color: var(--text-light);
+    transform: scale(1.05);
+    box-shadow: var(--box-shadow-hover);
+}
+
+.cta-button:focus-visible {
+    outline: 3px solid var(--brand-primary);
+    outline-offset: 4px;
+    box-shadow: 0 0 0 5px rgba(163, 0, 0, 0.25);
+}
+
+#hero .cta-button:focus-visible {
+    outline: 3px solid var(--brand-secondary);
+    box-shadow: 0 0 0 5px rgba(248, 240, 227, 0.25);
+}
+
+/* Global Content Sections */
+section {
+    padding: var(--spacing-xl) var(--spacing-md);
+    border-bottom: 1px solid var(--brand-secondary-dark);
+}
+
+section:last-of-type {
+    border-bottom: none;
+}
+
+section > h2 {
+    text-align: center;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: var(--spacing-xl);
+    position: relative;
+}
+
+section > h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--accent-gold);
+    margin: var(--spacing-sm) auto 0;
+    border-radius: 2px;
+}
+
+/* Featured Authors Section */
+#authors {
+    background-color: var(--brand-secondary);
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1200px;
+}
+
+@media (min-width: 768px) {
+    #authors {
+        contain-intrinsic-size: auto 600px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #authors {
+        contain-intrinsic-size: auto 450px;
+    }
+}
+
+.authors-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.author-card {
+    background-color: var(--text-light);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--box-shadow-subtle);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-top: 4px solid var(--brand-primary);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.author-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-hover);
+}
+
+.lazy-image {
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+.author-photo {
+    width: 120px;
+    height: 120px;
+    /* CLS: explicit aspect-ratio prevents layout shift before image loads */
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--accent-gold);
+    margin-bottom: var(--spacing-md);
+    transition: transform var(--transition-normal), opacity var(--transition-normal);
+    /* Reserves a circular block so surrounding text doesn't jump */
+    flex-shrink: 0;
+}
+
+.author-card:hover .author-photo {
+    transform: scale(1.08);
+}
+
+.author-name {
+    font-size: 1.8rem;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-dark);
+}
+
+.author-email {
+    font-size: 0.85rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.author-email a {
+    color: var(--text-muted);
+}
+
+.author-email a:hover {
+    color: var(--brand-primary);
+    text-decoration: underline;
+}
+
+.author-bio-snippet {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: var(--spacing-md);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.bio-toggle-btn {
+    background: transparent;
+    border: 2px solid transparent;
+    color: var(--brand-primary);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.bio-toggle-btn:hover {
+    color: var(--brand-primary-hover);
+    text-decoration: underline;
+}
+
+.bio-toggle-btn:focus-visible {
+    outline: 3px solid var(--brand-primary);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 5px rgba(163, 0, 0, 0.25);
+}
+
+/* Expanded bio content styling */
+.bio-full-content {
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--brand-secondary-dark);
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    text-align: left;
+    width: 100%;
+}
+
+.bio-full-content h4 {
+    font-size: 0.95rem;
+    margin-bottom: var(--spacing-xs);
+    color: var(--brand-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Engagement Schedule Section */
+#schedule {
+    background-color: var(--brand-secondary-dark);
+}
+
+.schedule-timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    padding-left: var(--spacing-lg);
+}
+
+.schedule-timeline::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 10px;
+    bottom: 10px;
+    width: 3px;
+    background-color: var(--accent-gold);
+    border-radius: 2px;
+}
+
+.schedule-timeline ul {
+    list-style: none;
+}
+
+.schedule-timeline li {
+    position: relative;
+    margin-bottom: var(--spacing-lg);
+}
+
+.schedule-timeline li:last-child {
+    margin-bottom: 0;
+}
+
+/* Bullet markers on the line */
+.schedule-timeline li::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--spacing-lg) * -1 - 3px);
+    top: 6px;
+    width: 13px;
+    height: 13px;
+    background-color: var(--brand-primary);
+    border: 3px solid var(--brand-secondary);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.schedule-timeline time {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--brand-primary);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xs);
+    background-color: var(--brand-secondary);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--brand-secondary-dark);
+}
+
+.event-details {
+    background: var(--text-light);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow-subtle);
+}
+
+.event-details h3 {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-dark);
+}
+
+.event-details p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+/* RSVP Form Section */
+#rsvp {
+    background-color: var(--brand-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#rsvp p {
+    text-align: center;
+    max-width: 600px;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-muted);
+}
+
+#rsvp-form {
+    background-color: var(--text-light);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow-subtle);
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid var(--brand-secondary-dark);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+.form-group label .required {
+    color: var(--brand-primary);
+    margin-left: 2px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem var(--spacing-sm);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    border: 2px solid #CCCCCC;
+    border-radius: var(--border-radius-sm);
+    background-color: var(--text-light);
+    /* CLS: explicit line-height prevents font-swap height shift */
+    line-height: 1.5;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Use :focus-visible so mouse users don't see the ring; keyboard users do */
+.form-group input:focus-visible {
+    border-color: var(--brand-primary);
+    outline: 3px solid var(--brand-primary);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(163, 0, 0, 0.15);
+}
+
+#rsvp-form .submit-button {
+    width: 100%;
+    background-color: var(--brand-primary);
+    color: var(--text-light);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.75rem var(--spacing-lg);
+    border: 2px solid transparent;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-normal),
+                transform var(--transition-normal),
+                box-shadow var(--transition-normal);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#rsvp-form .submit-button:hover {
+    background-color: var(--brand-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow-hover);
+}
+
+#rsvp-form .submit-button:active {
+    transform: translateY(0);
+}
+
+#rsvp-form .submit-button:focus-visible {
+    outline: 3px solid var(--brand-primary);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 5px rgba(163, 0, 0, 0.25);
+}
+
+/* Venue & Logistics Section */
+#venue {
+    background-color: var(--brand-secondary-dark);
+}
+
+.venue-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.venue-info h3 {
+    font-size: 1.8rem;
+    color: var(--brand-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.venue-info .address {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text-dark);
+    position: relative;
+    padding-left: var(--spacing-md);
+    border-left: 3px solid var(--accent-gold);
+}
+
+.parking-info {
+    background: var(--text-light);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow-subtle);
+}
+
+.parking-info h4 {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--brand-primary);
+}
+
+.parking-info p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.map-container {
+    width: 100%;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--box-shadow-subtle);
+    border: 4px solid var(--text-light);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    /* CLS: reserve vertical space for 600×400 map image before it loads */
+    aspect-ratio: 3 / 2;
+}
+
+.map-container:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow-hover);
+}
+
+.map-container img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+/* Footer Section */
+footer {
+    background-color: var(--brand-primary);
+    color: var(--text-light);
+    padding: var(--spacing-lg) var(--spacing-md);
+    text-align: center;
+    border-top: 4px solid var(--accent-gold);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+footer p:first-of-type {
+    font-weight: 600;
+}
+
+footer p:last-of-type {
+    font-size: 0.85rem;
+    color: var(--brand-secondary);
+}
+
+/* ==========================================================================
+   Responsive Adaptations & Breakpoints (Mobile First)
+   ========================================================================== */
+
+/* Media Query: Medium Tablet (min-width: 768px) */
+@media (min-width: 768px) {
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: var(--spacing-md) var(--spacing-lg);
+    }
+    
+    header nav ul {
+        gap: var(--spacing-lg);
+    }
+    
+    .authors-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-lg);
+    }
+    
+    .schedule-timeline {
+        padding-left: 0;
+    }
+    
+    /* Centering the timeline vertical line */
+    .schedule-timeline::before {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .schedule-timeline li {
+        width: 50%;
+        margin-bottom: var(--spacing-xl);
+    }
+    
+    /* Odd nodes to the left */
+    .schedule-timeline li:nth-child(odd) {
+        left: 0;
+        padding-right: var(--spacing-xl);
+        text-align: right;
+    }
+    
+    /* Even nodes to the right */
+    .schedule-timeline li:nth-child(even) {
+        left: 50%;
+        padding-left: var(--spacing-xl);
+        text-align: left;
+    }
+    
+    /* Bullet points position on centered line */
+    .schedule-timeline li:nth-child(odd)::before {
+        left: auto;
+        right: -8px;
+    }
+    
+    .schedule-timeline li:nth-child(even)::before {
+        left: -8px;
+    }
+    
+    .venue-info {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .venue-info > * {
+        flex: 1 1 45%;
+    }
+    
+    .map-container {
+        flex: 1 1 100%;
+        height: 350px;
+    }
+    
+    .map-container img {
+        height: 100%;
+    }
+}
+
+/* Media Query: Large Desktop (min-width: 1200px) */
+@media (min-width: 1200px) {
+    body {
+        font-size: 1.05rem;
+    }
+    
+    .authors-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .venue-info {
+        grid-template-columns: 1fr 1fr;
+        display: grid;
+        align-items: center;
+        gap: var(--spacing-xl);
+    }
+    
+    /* flex: none removed – .venue-info is display:grid at this breakpoint, flex properties have no effect */
+
+    .map-container {
+        grid-column: 2;
+        grid-row: 1 / span 3;
+        height: 400px;
+    }
+}
+
+/* Screen Reader Accessible Text Utility Class */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* RSVP Status Notification Component */
+.rsvp-status {
+    display: none;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto var(--spacing-md);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-lg);
+    font-weight: 600;
+    text-align: center;
+}
+
+.rsvp-status.status-success {
+    display: block;
+    background-color: #D4EDDA;
+    color: #155724;
+    border: 1px solid #C3E6CB;
+}
+
+.rsvp-status.status-error {
+    display: block;
+    background-color: #F8D7DA;
+    color: #721C24;
+    border: 1px solid #F5C6CB;
+}
+
+/* Author Profiles Status Messages (to replace JS inline styling) */
+.authors-status-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-weight: 600;
+    padding: var(--spacing-lg) 0;
+}
+
+.authors-status-error {
+    color: var(--brand-primary);
+}
+
+/* Accessible Bio Expansion Fade-In Animation */
+.bio-fade-in {
+    animation: bioFadeIn var(--transition-normal) ease-out forwards;
+}
+
+@keyframes bioFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

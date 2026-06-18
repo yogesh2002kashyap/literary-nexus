@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 
+      ── DEPLOYMENT CONFIGURATION ───────────────────────────────────────
+      To deploy this project, configure your final deployment URL below:
+      [DEPLOYMENT_URL] -> https://yoursite.com/literary-nexus
+      
+      Note: Update all occurrences of 'https://yoursite.com/literary-nexus' 
+      below to match your actual domain when deploying.
+      ───────────────────────────────────────────────────────────────────
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Literary Nexus Gala – An Evening with Featured Authors | Portland 2026</title>
+
+    <!-- ── Primary SEO ────────────────────────────────────────────────── -->
+    <meta name="description" content="Reserve your seat at the Literary Nexus Gala 2026 – an exclusive evening of author readings, panel discussions, and book signings at Portland Grand Ballroom.">
+    <meta name="keywords" content="literary event, author reading, book signing, Portland, Literary Nexus, 2026 gala">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yoursite.com/literary-nexus">
+
+    <!-- ── Open Graph (Facebook / LinkedIn) ──────────────────────────── -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yoursite.com/literary-nexus">
+    <meta property="og:title" content="The Literary Nexus Gala – An Evening with Featured Authors">
+    <meta property="og:description" content="Reserve your seat at the Literary Nexus Gala 2026 – an exclusive evening of author readings, panel discussions, and book signings.">
+    <meta property="og:image" content="https://yoursite.com/literary-nexus/assets/images/hero.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:alt" content="Elegant literary event venue">
+    <meta property="og:site_name" content="The Literary Nexus">
+    <meta property="og:locale" content="en_US">
+
+    <!-- ── Twitter Card ───────────────────────────────────────────────── -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Literary Nexus Gala – An Evening with Featured Authors">
+    <meta name="twitter:description" content="Reserve your seat at the Literary Nexus Gala 2026 – Portland Grand Ballroom.">
+    <meta name="twitter:image" content="https://yoursite.com/literary-nexus/assets/images/hero.webp">
+    <meta name="twitter:image:alt" content="Elegant literary event venue">
+
+    <!-- ── Structured Data (JSON-LD) ─────────────────────────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "The Literary Nexus Gala 2026",
+      "description": "An exclusive evening of author readings, panel discussions, and book signings.",
+      "startDate": "2026-12-31T19:00:00-08:00",
+      "endDate": "2026-12-31T22:00:00-08:00",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Portland Grand Ballroom",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "123 Literary Avenue",
+          "addressLocality": "Portland",
+          "addressRegion": "OR",
+          "postalCode": "97201",
+          "addressCountry": "US"
+        }
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "The Literary Nexus",
+        "url": "https://yoursite.com/literary-nexus"
+      },
+      "image": "https://yoursite.com/literary-nexus/assets/images/hero.webp",
+      "url": "https://yoursite.com/literary-nexus"
+    }
+    </script>
+
+    <!-- ── LCP: Hero image preload ───────────────────────────────────── -->
+    <link rel="preload" fetchpriority="high" as="image"
+          href="assets/images/hero.webp"
+          type="image/webp">
+
+    <!-- ── Font preconnects ───────────────────────────────────────────── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- ── Non-render-blocking Google Fonts (media=print swap trick) ─── -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap"
+          media="print"
+          onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap">
+    </noscript>
+
+    <!-- ── Main Stylesheet ───────────────────────────────────────────── -->
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <!-- ── Core JS – deferred (non-blocking) ────────────────────────── -->
+    <script src="assets/js/app.js" defer></script>
+</head>
+<body>
+
+    <!-- Accessibility Skip Link -->
+    <a href="#hero" class="skip-link">Skip to main content</a>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <a href="#" aria-label="The Literary Nexus Home">The Literary Nexus</a>
+        </div>
+        <nav aria-label="Main Navigation">
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#authors">Featured Authors</a></li>
+                <li><a href="#schedule">Schedule</a></li>
+                <li><a href="#rsvp">RSVP</a></li>
+                <li><a href="#venue">Venue &amp; Logistics</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Hero Section -->
+        <section id="hero" aria-label="Event Introduction">
+            <!-- LCP: native picture element – lets Lighthouse detect & prioritise the image -->
+            <picture class="hero-bg" aria-hidden="true">
+                <img src="assets/images/hero.webp"
+                     alt=""
+                     width="1200" height="675"
+                     fetchpriority="high"
+                     loading="eager"
+                     decoding="async">
+            </picture>
+
+            <h1>The Literary Nexus Presents: An Evening with Featured Authors</h1>
+            <h2>A Signature Series Engagement</h2>
+
+            <!-- Real-time Event Countdown (visual only – avoids screen reader flooding) -->
+            <div class="countdown-container" aria-hidden="true">
+                <span class="countdown-title">Event Commences In:</span>
+                <span id="countdown-timer">Loading countdown...</span>
+            </div>
+            <!-- Accessible static date announcement for screen readers -->
+            <p class="sr-only" id="sr-countdown-timer">The event commences soon.</p>
+
+            <!-- Call to Action -->
+            <a href="#rsvp" class="cta-button">Secure Your Exclusive Engagement Slot</a>
+        </section>
+
+        <!-- Featured Authors Section -->
+        <section id="authors" aria-labelledby="authors-heading">
+            <h2 id="authors-heading">Featured Literary Personalities</h2>
+            <div class="authors-grid">
+                
+                <!-- Author Card 1 -->
+                <article class="author-card" id="author-1">
+                    <img src="https://picsum.photos/id/1/200/200" onerror="this.onerror=null;this.src='assets/images/author-fallback.svg';" alt="Portrait of Leanne Graham" class="author-photo">
+                    <h3 class="author-name">Leanne Graham</h3>
+                    <p class="author-email"><a href="mailto:Sincere@april.biz" aria-label="Email Leanne Graham">Sincere@april.biz</a></p>
+                    <p class="author-bio-snippet">Multi-layered client-server neural-net...</p>
+                    
+                    <!-- Bio Expansion Controls (Accessible Toggle) -->
+                    <button type="button" aria-expanded="false" aria-controls="bio-detail-1" class="bio-toggle-btn">View Full Profile</button>
+                    <div id="bio-detail-1" class="bio-full-content" hidden>
+                        <h4>Full Biography Details</h4>
+                        <p>harness real-time e-markets</p>
+                    </div>
+                </article>
+
+                <!-- Author Card 2 -->
+                <article class="author-card" id="author-2">
+                    <img src="https://picsum.photos/id/2/200/200" onerror="this.onerror=null;this.src='assets/images/author-fallback.svg';" alt="Portrait of Ervin Howell" class="author-photo">
+                    <h3 class="author-name">Ervin Howell</h3>
+                    <p class="author-email"><a href="mailto:Shanna@melissa.tv" aria-label="Email Ervin Howell">Shanna@melissa.tv</a></p>
+                    <p class="author-bio-snippet">Proactive didactic contingency...</p>
+                    
+                    <button type="button" aria-expanded="false" aria-controls="bio-detail-2" class="bio-toggle-btn">View Full Profile</button>
+                    <div id="bio-detail-2" class="bio-full-content" hidden>
+                        <h4>Full Biography Details</h4>
+                        <p>synergize scalable e-commerce</p>
+                    </div>
+                </article>
+
+                <!-- Author Card 3 -->
+                <article class="author-card" id="author-3">
+                    <img src="https://picsum.photos/id/3/200/200" onerror="this.onerror=null;this.src='assets/images/author-fallback.svg';" alt="Portrait of Clementine Bauch" class="author-photo">
+                    <h3 class="author-name">Clementine Bauch</h3>
+                    <p class="author-email"><a href="mailto:Nathan@yesenia.net" aria-label="Email Clementine Bauch">Nathan@yesenia.net</a></p>
+                    <p class="author-bio-snippet">Face to face bifurcated interface...</p>
+                    
+                    <button type="button" aria-expanded="false" aria-controls="bio-detail-3" class="bio-toggle-btn">View Full Profile</button>
+                    <div id="bio-detail-3" class="bio-full-content" hidden>
+                        <h4>Full Biography Details</h4>
+                        <p>e-enable innovative applications</p>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Schedule Section -->
+        <section id="schedule" aria-labelledby="schedule-heading">
+            <h2 id="schedule-heading">Engagement Schedule &amp; Key Logistics</h2>
+            <div class="schedule-timeline">
+                <ul>
+                    <li>
+                        <time datetime="19:00">7:00 PM</time>
+                        <div class="event-details">
+                            <h3>Doors Open &amp; Welcome Reception</h3>
+                            <p>Guest check-in, networking, and pre-event refreshments.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <time datetime="19:30">7:30 PM</time>
+                        <div class="event-details">
+                            <h3>Author Reading &amp; Discussion</h3>
+                            <p>Readings from featured selections followed by a moderated panel conversation.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <time datetime="20:30">8:30 PM</time>
+                        <div class="event-details">
+                            <h3>Q&amp;A Session</h3>
+                            <p>Audience questions and interactive dialogue with the guest authors.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <time datetime="21:00">9:00 PM</time>
+                        <div class="event-details">
+                            <h3>Book Signing &amp; Networking</h3>
+                            <p>Opportunities for book purchases, personalized signings, and community networking.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- RSVP Form Section -->
+        <section id="rsvp" aria-labelledby="rsvp-heading">
+            <h2 id="rsvp-heading">Confirm Your Attendance</h2>
+            <p>Please reserve your exclusive engagement slot using the registration form below.</p>
+            
+            <!-- Accessible status notification component -->
+            <div id="rsvp-status" role="status" aria-live="polite" class="rsvp-status"></div>
+            
+            <form id="rsvp-form" action="https://httpbin.org/post" method="POST">
+                <div class="form-group">
+                    <label for="rsvp-name">Your Full Name <span class="required" aria-hidden="true">*</span></label>
+                    <input type="text" id="rsvp-name" name="name" placeholder="E.g. Jane Doe" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="rsvp-email">Your Professional Email <span class="required" aria-hidden="true">*</span></label>
+                    <input type="email" id="rsvp-email" name="email" placeholder="E.g. jane.doe@domain.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="rsvp-affiliation">Your Organization/Affiliation (Optional)</label>
+                    <input type="text" id="rsvp-affiliation" name="affiliation" placeholder="E.g. Literary Society Inc.">
+                </div>
+                
+                <button type="submit" class="submit-button">Confirm Your Attendance</button>
+            </form>
+        </section>
+
+        <!-- Venue & Logistics Section -->
+        <section id="venue" aria-labelledby="venue-heading">
+            <h2 id="venue-heading">Venue &amp; Location Logistics</h2>
+            <div class="venue-info">
+                <h3>Portland Grand Ballroom</h3>
+                <p class="address">123 Literary Avenue, Portland, OR 97201</p>
+                
+                <div class="parking-info">
+                    <h4>Parking &amp; Transit Details</h4>
+                    <p>Valet parking is available on-site. Self-parking options are located within two blocks of the venue. The location is highly accessible via public transit routes.</p>
+                </div>
+
+                <div class="map-container">
+                    <a href="https://maps.google.com/?q=The+Literary+Nexus+Portland" target="_blank" rel="noopener noreferrer" aria-label="View venue location on Google Maps (opens in a new tab)">
+                        <img src="https://via.placeholder.com/600x400?text=View+Map" alt="Google Maps location preview of Portland Grand Ballroom" width="600" height="400" loading="lazy">
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2026 The Literary Nexus. All rights reserved.</p>
+        <p>Providing exceptional literary environments and author events.</p>
+    </footer>
+
+</body>
+</html>

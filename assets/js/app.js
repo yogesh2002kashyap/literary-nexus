@@ -72,7 +72,10 @@
             /* Optionally update hero title */
             const heroTitle = document.querySelector('#hero h1');
             if (heroTitle && data.eventName) {
-                heroTitle.textContent = `${data.eventName} 2026`;
+                const newTitle = `${data.eventName} 2026`;
+                if (heroTitle.textContent !== newTitle) {
+                    heroTitle.textContent = newTitle;
+                }
             }
 
             if (data.eventDate) {

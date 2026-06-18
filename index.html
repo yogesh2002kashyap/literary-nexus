@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ── LCP: High Priority Hero Image Preload (placed first to trigger early request scanner) ── -->
+    <link rel="preload" fetchpriority="high" as="image" href="assets/images/hero.webp" type="image/webp">
+
+    <!-- ── Font preconnects ── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- ── Preload Critical Font Stylesheet ── -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap">
+
     <!-- 
       ── DEPLOYMENT CONFIGURATION ───────────────────────────────────────
       To deploy this project, configure your final deployment URL below:
       [DEPLOYMENT_URL] -> https://literary-nexus.vercel.app/
       ───────────────────────────────────────────────────────────────────
     -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Literary Nexus Gala – An Evening with Featured Authors | Portland 2026</title>
 
     <!-- ── Primary SEO ────────────────────────────────────────────────── -->
@@ -69,15 +80,6 @@
     }
     </script>
 
-    <!-- ── LCP: Hero image preload ───────────────────────────────────── -->
-    <link rel="preload" fetchpriority="high" as="image"
-          href="assets/images/hero.webp"
-          type="image/webp">
-
-    <!-- ── Font preconnects ───────────────────────────────────────────── -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <!-- ── Non-render-blocking Google Fonts (media=print swap trick) ─── -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap"
@@ -130,7 +132,7 @@
                      decoding="async">
             </picture>
 
-            <h1>The Literary Nexus Gala 2026</h1>
+            <h1>Literary Nexus Gala 2026</h1>
             <h2>An Exclusive Evening with Featured Authors</h2>
 
             <!-- Real-time Event Countdown (visual only – avoids screen reader flooding) -->
